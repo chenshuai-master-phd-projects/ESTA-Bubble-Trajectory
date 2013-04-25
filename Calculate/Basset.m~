@@ -1,0 +1,29 @@
+function [r,Caches]=Basset(n,ratio,PositionP,Position0,Velocity0,R,Caches,NewCache)
+%Basset force at the n th time step
+if n~=0;
+	global MU RHOC dtf
+	DT=ratio*dtf;%DT:time step length between 2 neighbouring computational frames
+	Uf0=interpolation(0,Position0,'Velocity');%bubble's velocity at the n th time step
+	tmp1=(Uf0-Velocity0)./sqrt(n*DT);
+	%Store the relative acceleration between fluid and bubble  at the (n-1) th time
+	%step
+	Caches(n,:)=NewCache;%NewCache=DU_f/Dt'|n-1-dU_p/dt'|n-1
+	%Iteration to calculate integration
+      tmp2=0;
+      for i=1:n;
+		tmp2=tmp2+Caches(i,:).*DT./sqrt((n-i+1)*DT);
+      end
+	tmp=tmp1+tmp2;
+	r=6*R^2*sqrt(pi*MU*RHOC)*tmp;
+
+else%n=0 Basset=0 
+    if size(PositionP,2)==3;
+        r=[0,0,0];
+        Caches(1,:)=[0,0,0];
+    else
+        r=[0,0];
+        Caches(1,:)=[0,0];
+    end
+end
+
+end

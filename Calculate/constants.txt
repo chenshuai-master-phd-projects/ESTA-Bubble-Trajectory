@@ -1,0 +1,10 @@
+#\mu coefficient of dynamic viscosity of fluid
+0.001308
+#\rho_c density of fluid
+1000
+#\rho_p density of bubble
+1.293
+#\gamma isentropic index
+1.4
+#\gravity acceleration
+9.8

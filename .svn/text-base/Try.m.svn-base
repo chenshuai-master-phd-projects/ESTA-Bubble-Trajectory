@@ -1,0 +1,34 @@
+function varargout=Try(s,a,b)
+%if s=='yes'
+%{
+if nargin==0;
+    sprintf('Good')
+else
+    if s=='Yes';
+        sprintf('VeryGood')
+    end
+end
+%}
+%{
+if nargin==1;
+    if s=='Yes';
+        sprintf('VeryGood')
+    end
+end
+%}
+if strcmp(s,'Yes');
+    varargout{1}=[1,2,3];
+    varargout{2}=4;
+    sprintf('Yes')
+elseif strcmp(s,'No')&(nargin==1);
+    varargout{1}=234;
+    sprintf('No')
+elseif strcmp(s,'Plus');
+    sprintf('%f',a+b)
+elseif strcmp(s,'Nothing')&(nargin==1);
+    nargout=0;
+end
+    
+    
+end
+
