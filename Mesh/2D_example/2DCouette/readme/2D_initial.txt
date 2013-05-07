@@ -1,0 +1,8 @@
+#dimension
+2
+# P(0) R(0)
+101325 0.03
+#X(0),Y(0)the initial position of bubble
+0.13 1.9
+#Vx(0),Vy(0)the initial velocity of bubble
+0 0
