@@ -12,6 +12,22 @@ else
     %assignment of initial values    
     [finish,PositionP,VelocityP,cache,CacheArray]=Restart('Read&Assign',Position0,Velocity0);
 end
+
+
+
+
+
+
+	  global system
+	  if strcmp(system,'WINDOWS');
+		  filename=['..\trajectory\acceleration.dat'];
+	  elseif strcmp(system,'LINUX');
+		  filename=['../trajectory/acceleration.dat'];
+	  end
+	  fid=fopen(filename,'w')
+	  fclose(fid)
+
+
 %Begin the temporal integration
 head=finish;
 for n=head:NT;    
@@ -54,6 +70,16 @@ for n=head:NT;
         AccelerationD=D./Mequal
         AccelerationN=N./Mequal
         AccelerationB=B./Mequal
+	  
+	  fid=fopen(filename,'at');
+	  fprintf(fid,'%.10f %.10f %.10f %.10f %.10f %.10f %.10f %.10f %.10f %.10f %.10f %.10f %.10f\n',...
+	  n*DT,AccelerationP(1),AccelerationP(2),...
+	  AccelerationBG(1),AccelerationBG(2),...
+	  AccelerationD(1),AccelerationD(2),...
+	  AccelerationB(1),AccelerationB(2),...
+	  AccelerationL(1),AccelerationL(2),...
+	  AccelerationN(1),AccelerationN(2));
+	  fclose(fid)
         %}
         
         %Added mass force at the n th time step
@@ -70,9 +96,9 @@ for n=head:NT;
         PositionP=PositionP+VelocityP.*DT;
         %predict of the next position of bubble
         if size(PositionP,2)==3;
-            sprintf('The next position of bubble=(%f,%f,%f)',PositionP(1),PositionP(2),PositionP(3))
+            sprintf('The next position of bubble=(%.10f,%.10f,%.10f)',PositionP(1),PositionP(2),PositionP(3))
         else %dim=2
-            sprintf('The next position of bubble=(%f,%f)',PositionP(1),PositionP(2))
+            sprintf('The next position of bubble=(%.10f,%.10f)',PositionP(1),PositionP(2))
         end
         %Calculation of Reynolds number and 'NearWall'
         [Re,NearWall]=Reynolds(n,PositionP,VelocityP,r,SafeDistance);
@@ -81,6 +107,10 @@ for n=head:NT;
         sprintf('********************************************')
     end
 end
+
+fclose(fid)
+
+
 Restart('Default');%set the content in the file  Record.txt to default
 sprintf('Every time step of the computation has been completed')
 end

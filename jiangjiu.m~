@@ -104,8 +104,8 @@ title('\bfAcceleration in Y axis')
 xlabel('t /s')
 ylabel('Acceleration /ms^{-2}')
 legend('Total','Buoyance&Gravity','Drag','Basset','Lift','Nameless')
-saveas(a2,'Ay-t','epsc')
-saveas(a2,'Ay-t','jpg')
+saveas(a1,'Ay-t','epsc')
+saveas(a1,'Ay-t','jpg')
 
 
 

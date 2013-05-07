@@ -5,7 +5,7 @@ system='LINUX';
 [P0,R0,X0,V0]=initialisation();
 
 
-%NT Nomber of steps of time
+%NT Number of steps of time
 NT=1000;
 %!!!!!Caution!!!!NT+ratio should be less than the maximum serial number of
 %flow field frame,or there may be an INDEX OUT OF BOUNDS error.
@@ -16,9 +16,9 @@ dt=0.0025;
 %and the boundary treatment for FDM(Finite Difference Method)
 global dim
 if dim==3;
-    SafeDistance=[0.0001,0.0002,0.0003];
+    SafeDistance=[0.000000001,0.000000002,0.000000003];
 else
-    SafeDistance=[0.0001,0.0002];
+    SafeDistance=[0.000000001,0.000000002];
 end
     
 %the assurance of creeping flow.The Reynolds number should be less than epsilon
